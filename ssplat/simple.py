@@ -25,7 +25,7 @@ SCREEN_HEIGHT = 600
 pygame.init()
 
 PHYSICS_UPDATE = pygame.USEREVENT + 1
-time_step = 10
+time_step = 10 # 10 milliseconds, or .010 seconds
 pygame.time.set_timer(PHYSICS_UPDATE, time_step) # Update physics every 50ms
 
 prt = print
