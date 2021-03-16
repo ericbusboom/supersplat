@@ -51,18 +51,6 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.move_ip(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
 
-    # Move the sprite based on user keypresses
-
-    def update_pos(self, pressed_keys):
-        """Directly update the position"""
-        if pressed_keys[K_UP]:
-            self.rect.move_ip(0, -5)
-        if pressed_keys[K_DOWN]:
-            self.rect.move_ip(0, 5)
-        if pressed_keys[K_LEFT]:
-            self.rect.move_ip(-5, 0)
-        if pressed_keys[K_RIGHT]:
-            self.rect.move_ip(5, 0)
 
     def update_v(self, pressed_keys):
         """Update the velocities"""
