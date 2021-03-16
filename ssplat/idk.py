@@ -8,6 +8,8 @@
 
 import pygame
 
+from pathlib import Path
+
 from pygame.locals import (
     K_UP,
     K_DOWN,
@@ -31,6 +33,9 @@ pygame.time.set_timer(PHYSICS_UPDATE, time_step) # Update physics every 10 ms
 
 prt = print
 
+images = Path(__file__).parent.joinpath('images')
+
+
 #prt = lambda v: None
 
 # Define a Player object by extending pygame.sprite.Sprite
@@ -38,15 +43,15 @@ prt = print
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.Surface((75, 25))
-        self.surf.fill((255, 255, 255))
+        self.surf = pygame.image.load(images.joinpath('mario150.bmp')).convert_alpha()
+        #self.surf = pygame.Surface((75, 25))
+        #self.surf.fill((255, 255, 255))
         self.rect = self.surf.get_rect()
 
         self.a_y = -500 # negative is down
         self.dv_y = 400
         self.dt = time_step/1000
 
-        self.v_x = 0
         self.v_y = 0
 
         self.rect.move_ip(100, SCREEN_HEIGHT-35)
@@ -64,13 +69,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.move_ip(5, 0)
 
     def physics(self):
+        """Update physics, Y axis velocity"""
 
-        self.v_y += self.a_y * self.dt
-        dy = self.v_y * self.dt
+        self.v_y += self.a_y * self.dt # v =at
+        dy = self.v_y * self.dt # x = vt
         self.rect.move_ip(0, -dy)
 
     def constrain(self):
-        # Keep player on the screen
+        """Keep player on the screen"""
 
         if self.rect.left < 0:
             self.rect.left = 0
@@ -86,12 +92,15 @@ class Player(pygame.sprite.Sprite):
             self.v_y = 0
 
 
-player = Player()
+
 # Set up the drawing window
 screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 
+player = Player()
+
 # Run until the user asks to quit
 running = True
+
 while running:
     # Look at every event in the queue
     for event in pygame.event.get():
@@ -115,13 +124,9 @@ while running:
             player.constrain()
 
 
-
-
-    # Fill the background with white
     screen.fill((0, 0, 0))
 
     screen.blit(player.surf,  player.rect)
-
     pygame.display.flip()
 
 # Done! Time to quit.
