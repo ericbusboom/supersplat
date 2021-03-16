@@ -26,7 +26,7 @@ pygame.init()
 
 PHYSICS_UPDATE = pygame.USEREVENT + 1
 time_step = 10 # 10 milliseconds, or .010 seconds
-pygame.time.set_timer(PHYSICS_UPDATE, time_step) # Update physics every 50ms
+pygame.time.set_timer(PHYSICS_UPDATE, time_step) # Update physics every 10 ms
 
 prt = print
 
