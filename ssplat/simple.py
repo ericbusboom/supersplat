@@ -127,10 +127,11 @@ while running:
 
         if event.type == PHYSICS_UPDATE:
             player.physics()
+            player.constrain()
 
     pressed_keys = pygame.key.get_pressed()
     player.update_v(pressed_keys)
-    player.constrain()
+    
 
     # Fill the background with white
     screen.fill((0, 0, 0))
