@@ -43,7 +43,7 @@ images = Path(__file__).parent.joinpath('images')
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player, self).__init__()
-        self.surf = pygame.image.load(images.joinpath('mario150.bmp')).convert_alpha()
+        self.surf = pygame.image.load(images.joinpath('mario150.bmp'))#.convert_alpha()
         #self.surf = pygame.Surface((75, 25))
         #self.surf.fill((255, 255, 255))
         self.rect = self.surf.get_rect()
@@ -56,10 +56,10 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.move_ip(100, SCREEN_HEIGHT-35)
 
-    def update_v(self, pressed_keys):
+    def update(self, pressed_keys):
         """Update the velocities"""
 
-        if pressed_keys[K_UP] and self.v_y == 0:
+        if pressed_keys[K_UP] and self.v_y == 0 and self.rect.bottom == SCREEN_HEIGHT:
             self.v_y += self.dv_y
             self.rect.move_ip(0, -1) # Kick off the bottom so constrain() doesnt set to zero
 
@@ -116,13 +116,13 @@ while running:
                 running = False
 
         if event.type == KEYDOWN or event.type == KEYUP:
-            pressed_keys = pygame.key.get_pressed()
-            player.update_v(pressed_keys)
-
+            pass
         if event.type == PHYSICS_UPDATE:
             player.physics()
             player.constrain()
 
+    pressed_keys = pygame.key.get_pressed()
+    player.update(pressed_keys)
 
     screen.fill((0, 0, 0))
 
